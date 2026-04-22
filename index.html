@@ -21,13 +21,13 @@
                         <div>Subject</div>
                         <div>Theory Grade</div>
                         <div>Practical Grade</div>
-                        <div>Credits</div>
                         <div>Action</div>
                     </div>
-
+                    
                     <!-- Template Row (One subject) -->
-                    <div class="subject-row grid grid-cols-1 md:grid-cols-5 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="subject-row grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-white rounded-lg border border-gray-200">
                         <select class="p-2 border rounded focus:ring-2 focus:ring-indigo-400 outline-none">
+                            <option value="" disabled selected hidden>Select Subject</option>
                             <option value="maths-2">M-2</option>
                             <option value="be">BE</option>
                             <option value="bee">BEE</option>
@@ -38,20 +38,32 @@
 
                         <p class="md:hidden pt-1 mb-[-1rem]">Theory</p>
                         <select class="theory-grade p-2 border rounded focus:ring-2 focus:ring-indigo-400">
-                            <option value="9">A+ (9)</option>
-                            <!-- Add other grades -->
+                            <option value="" disabled selected hidden>Select Grade</option>
+                            <option value="10">A+</option>
+                            <option value="9">A</option>
+                            <option value="8">B+</option>
+                            <option value="7">A</option>
+                            <option value="6">C+</option>
+                            <option value="5">C</option>
+                            <option value="4">D</option>
+                            <option value="3">F</option>
                         </select>
                         
                         
                         <p class="md:hidden pt-1 mb-[-1rem]">practical</p>
                         <select class="practical-grade p-2 border rounded focus:ring-2 focus:ring-indigo-400">
-                            <option value="9">A+ (9)</option>
-                            <!-- Add other grades -->
+                            <option value="" disabled selected hidden>Select Grade</option>
+                            <option value="10">A+</option>
+                            <option value="9">A</option>
+                            <option value="8">B+</option>
+                            <option value="7">A</option>
+                            <option value="6">C+</option>
+                            <option value="5">C</option>
+                            <option value="4">D</option>
+                            <option value="3">F</option>
                         </select>
-
-                        <input type="number" placeholder="Credits" class="credits p-2 border rounded focus:ring-2 focus:ring-indigo-400 outline-none">
                         
-                        <button class="remove-btn bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition">Remove</button>
+                        <button class="remove-btn bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition mt-5 md:mt-0">Remove</button>
                     </div>
                 </div>
 
