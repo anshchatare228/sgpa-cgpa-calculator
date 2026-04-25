@@ -85,8 +85,8 @@
 
 
     <!-- Main Container -->
-    <div class="hidden min-h-screen bg-zinc-800 flex items-center justify-center p-4">
-        <div class="w-full max-w-4xl bg-white/70 shadow-xl rounded-xl p-6 md:p-8">
+    <div class=" min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center p-4">
+        <div class="w-full max-w-4xl bg-white/60 shadow-xl rounded-xl p-6 md:p-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Academic Calculator</h1>
 
             <!-- SGPA Section -->
@@ -103,13 +103,8 @@
                     
                     <!-- Template Row (One subject) -->
                     <div class="subject-row grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-white rounded-lg border border-gray-200">
-                        <p>Select Structure</p>
-                        <select id="structureSelect" class="p-2 border rounded focus:ring-2 focus:ring-indigo-400 outline-none mt-[-1rem]">
-                            <option value="structureA">Structure A</option>
-                            <option value="structureB">Structure B</option>
-                        </select>
 
-                        <select id="structureA" class="p-2 border rounded focus:ring-2 focus:ring-indigo-400 outline-none mt-5">
+                        <select id="structureA" class="p-2 border rounded focus:ring-2 focus:ring-indigo-400 outline-none">
                             <option value="" disabled selected hidden>Select Subject</option>
                             <option value="maths-2">M-1/M-2</option>
                             <option value="be">Chemistry</option>
@@ -118,17 +113,6 @@
                             <option value="pps">Drama</option>
                             <option value="exploration">ETM</option>
                         </select>
-
-                        <select id="structureB" class="p-2 border rounded focus:ring-2 focus:ring-indigo-400 outline-none mt-5">
-                            <option value="" disabled selected hidden>Select Subject</option>
-                            <option value="maths-2">M-1/M-2</option>
-                            <option value="be">BE</option>
-                            <option value="bee">BEE</option>
-                            <option value="physics">Physics</option>
-                            <option value="pps">PPS</option>
-                            <option value="exploration">Exploration Engg.</option>
-                        </select>
-
 
                         <p class="md:hidden pt-1 mb-[-1rem]">Theory</p>
                         <select class="theory-grade p-2 border rounded focus:ring-2 focus:ring-indigo-400">
