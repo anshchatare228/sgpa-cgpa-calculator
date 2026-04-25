@@ -9,90 +9,90 @@
 <body class="bg-zinc-800">
 
     <!-- Perspective Wrapper -->
-<div class="h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center p-6 [perspective:1000px] overflow-hidden">
-    
-    <!-- The Flipper Container -->
-    <div id="main-flipper" class="relative w-full max-w-2xl transition-all mt-[-3rem] duration-1000 [transform-style:preserve-3d]">
+    <div id="selectorPage" class="hidden h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center p-6 [perspective:1000px] overflow-hidden">
         
-        <!-- SIDE 1: SEMESTER SELECTOR -->
-        <div class="[backface-visibility:hidden] w-full">
-            <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-10 shadow-2xl text-center">
-                <h1 class="text-4xl font-extrabold text-white mb-8 tracking-tight">Select Your Semester</h1>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Sem 1 Button -->
-                    <button onclick="goToStructure()" class="group relative bg-white/5 hover:bg-emerald-600/0 border border-white/10 hover:border-emerald-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
-                        <div class="text-6xl font-bold text-white/20 group-hover:text-emerald-600/30 absolute top-4 right-6 transition-all group-hover:scale-125 duration-300">1</div>
-                        <h2 class="text-2xl font-bold text-white mb-2 text-left">Semester 1</h2>
-                        <p class="text-gray-400 text-sm text-left leading-relaxed">Freshman Year</p>
-                        <div class="mt-6 flex items-center text-emerald-600/30 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Select this semester →</div>
-                    </button>
+        <!-- The Flipper Container -->
+        <div id="main-flipper" class="relative w-full max-w-2xl transition-all mt-[-3rem] duration-1000 [transform-style:preserve-3d]">
+            
+            <!-- SIDE 1: SEMESTER SELECTOR -->
+            <div class="[backface-visibility:hidden] w-full">
+                <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-10 shadow-2xl text-center">
+                    <h1 class="text-4xl font-extrabold text-white mb-8 tracking-tight">Select Your Semester</h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Sem 1 Button -->
+                        <button id="sem1" onclick="goToStructure()" class="group relative bg-white/5 hover:bg-emerald-600/0 border border-white/10 hover:border-emerald-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                            <div class="text-6xl font-bold text-white/20 group-hover:text-emerald-600/30 absolute top-4 right-6 transition-all group-hover:scale-125 duration-300">1</div>
+                            <h2 class="text-2xl font-bold text-white mb-2 text-left">Semester 1</h2>
+                            <p class="text-gray-400 text-sm text-left leading-relaxed">Freshman Year</p>
+                            <div class="mt-6 flex items-center text-emerald-600/30 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Select this semester →</div>
+                        </button>
 
-                    <!-- Sem 2 Button -->
-                    <button onclick="goToStructure()" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-red-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
-                        <div class="text-6xl font-bold text-white/20 group-hover:text-red-400/60 absolute top-4 right-6 transition-all group-hover:scale-110 duration-300">2</div>
-                        <h2 class="text-2xl font-bold text-white mb-2 text-left">Semester 2</h2>
-                        <p class="text-gray-400 text-sm text-left leading-relaxed">Sophomore Vibes</p>
-                        <div class="mt-6 flex items-center text-red-400/90 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Select this semester →</div>
-                    </button>
+                        <!-- Sem 2 Button -->
+                        <button id="sem2" onclick="goToStructure()" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-red-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                            <div class="text-6xl font-bold text-white/20 group-hover:text-red-400/60 absolute top-4 right-6 transition-all group-hover:scale-110 duration-300">2</div>
+                            <h2 class="text-2xl font-bold text-white mb-2 text-left">Semester 2</h2>
+                            <p class="text-gray-400 text-sm text-left leading-relaxed">Sophomore Vibes</p>
+                            <div class="mt-6 flex items-center text-red-400/90 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Select this semester →</div>
+                        </button>
+                    </div>
+                    <p class="mt-8 text-gray-500 text-xs italic">Step 1: Choose your current semester.</p>
                 </div>
-                <p class="mt-8 text-gray-500 text-xs italic">Step 1: Choose your current semester.</p>
             </div>
-        </div>
 
-        <!-- SIDE 2: STRUCTURE SELECTOR (Face Down Initially) -->
-        <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] w-full">
-            <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-10 shadow-2xl text-center h-full">
-                <h1 class="text-4xl font-extrabold text-white mb-8 tracking-tight">Select Your Structure</h1>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Structure A -->
-                    <button class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-emerald-400/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
-                        <div class="text-6xl font-bold text-white/20 group-hover:text-emerald-400/30 absolute top-4 right-6 transition-colors">A</div>
-                        <h2 class="text-2xl font-bold text-white mb-2 text-left ml-[-0.3rem]">Structure A</h2>
-                        <p class="text-gray-400 text-sm text-left leading-relaxed">Includes EGD & Physics</p>
-                        <div class="mt-6 flex items-center text-emerald-400 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Select →</div>
-                    </button>
+            <!-- SIDE 2: STRUCTURE SELECTOR (Face Down Initially) -->
+            <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] w-full">
+                <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-10 shadow-2xl text-center h-full">
+                    <h1 class="text-4xl font-extrabold text-white mb-8 tracking-tight">Select Your Structure</h1>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Structure A -->
+                        <button onclick="structSelected()" id="structA" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-emerald-400/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                            <div class="text-6xl font-bold text-white/20 group-hover:text-emerald-400/30 absolute top-4 right-6 transition-colors">A</div>
+                            <h2 class="text-2xl font-bold text-white mb-2 text-left ml-[-0.3rem]">Structure A</h2>
+                            <p class="text-gray-400 text-sm text-left leading-relaxed">Includes EGD & Physics</p>
+                            <div class="mt-6 flex items-center text-emerald-400 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Select →</div>
+                        </button>
 
-                    <!-- Structure B -->
-                    <button class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-red-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
-                        <div class="text-6xl font-bold text-white/20 group-hover:text-red-400/60 absolute top-4 right-6 transition-colors">B</div>
-                        <h2 class="text-2xl font-bold text-white mb-2 text-left">Structure B</h2>
-                        <p class="text-gray-400 text-sm text-left leading-relaxed">Includes PPS & Chemistry</p>
-                        <div class="mt-6 flex items-center text-red-400/90 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Select →</div>
-                    </button>
+                        <!-- Structure B -->
+                        <button onclick="structSelected()" id="structB" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-red-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                            <div class="text-6xl font-bold text-white/20 group-hover:text-red-400/60 absolute top-4 right-6 transition-colors">B</div>
+                            <h2 class="text-2xl font-bold text-white mb-2 text-left">Structure B</h2>
+                            <p class="text-gray-400 text-sm text-left leading-relaxed">Includes PPS & Chemistry</p>
+                            <div class="mt-6 flex items-center text-red-400/90 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Select →</div>
+                        </button>
+                    </div>
+                    
+                    <!-- Back Button -->
+                    <button onclick="goBack()" class="mt-6 text-white/50 hover:text-white text-xs underline decoration-dotted">← Back to Semester Selection</button>
                 </div>
-                
-                <!-- Back Button -->
-                <button onclick="goBack()" class="mt-6 text-white/50 hover:text-white text-xs underline decoration-dotted">← Back to Semester Selection</button>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    const flipper = document.getElementById('main-flipper');
+    <script>
+        const flipper = document.getElementById('main-flipper');
 
-    function goToStructure() {
-        flipper.style.transform = "rotateY(180deg)";
-    }
+        function goToStructure() {
+            flipper.style.transform = "rotateY(180deg)";
+        }
 
-    function goBack() {
-        flipper.style.transform = "rotateY(0deg)";
-    }
-</script>
+        function goBack() {
+            flipper.style.transform = "rotateY(0deg)";
+        }
+    </script>
 
 
 
     <!-- Main Container -->
-    <div class=" min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center p-4">
-        <div class="w-full max-w-4xl bg-white/60 shadow-xl rounded-xl p-6 md:p-8">
+    <div id="mainPage" class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center p-4">
+        <div class="w-full max-w-4xl bg-white/50 backdrop-blur-2xl shadow-xl rounded-xl p-6 md:p-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Academic Calculator</h1>
 
             <!-- SGPA Section -->
             <section id="sgpa-section" class="mb-10">
                 <h2 class="text-xl font-semibold text-purple-800 mb-4 border-b pb-2">Step 1: Calculate SGPA</h2>
-                <div id="subject-rows" class="space-y-4">
+                <div class="space-y-4">
                     <!-- Subject Header (Desktop) -->
                     <div class="hidden md:flex justify-around font-medium text-gray-600 mb-2 px-2">
                         <div>Subject</div>
@@ -102,46 +102,11 @@
                     </div>
                     
                     <!-- Template Row (One subject) -->
-                    <div class="subject-row grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-white rounded-lg border border-gray-200">
+                    <div id="subjectRows" class="subjectRows grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-white rounded-lg border border-gray-200">
 
-                        <select id="structureA" class="p-2 border rounded focus:ring-2 focus:ring-indigo-400 outline-none">
-                            <option value="" disabled selected hidden>Select Subject</option>
-                            <option value="maths-2">M-1/M-2</option>
-                            <option value="be">Chemistry</option>
-                            <option value="bee">IKS</option>
-                            <option value="physics">EGD</option>
-                            <option value="pps">Drama</option>
-                            <option value="exploration">ETM</option>
-                        </select>
 
-                        <p class="md:hidden pt-1 mb-[-1rem]">Theory</p>
-                        <select class="theory-grade p-2 border rounded focus:ring-2 focus:ring-indigo-400">
-                            <option value="" disabled selected hidden>Select Grade</option>
-                            <option value="10">A+</option>
-                            <option value="9">A</option>
-                            <option value="8">B+</option>
-                            <option value="7">A</option>
-                            <option value="6">C+</option>
-                            <option value="5">C</option>
-                            <option value="4">D</option>
-                            <option value="3">F</option>
-                        </select>
-                        
-                        
-                        <p id="practical-wrapper" class="md:hidden pt-1 mb-[-1rem]">practical</p>
-                        <select class="practical-grade p-2 border rounded focus:ring-2 focus:ring-indigo-400">
-                            <option value="" disabled selected hidden>Select Grade</option>
-                            <option value="10">A+</option>
-                            <option value="9">A</option>
-                            <option value="8">B+</option>
-                            <option value="7">A</option>
-                            <option value="6">C+</option>
-                            <option value="5">C</option>
-                            <option value="4">D</option>
-                            <option value="3">F</option>
-                        </select>
-                        
-                        <button id="removeBtn" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition mt-5 md:mt-0">Remove</button>
+
+                    
                     </div>
                 </div>
 
@@ -175,5 +140,5 @@
         </div>
     </div>
 </body>
-<script src="main.js"></script>
+<script defer src="main.js"></script>
 </html>
