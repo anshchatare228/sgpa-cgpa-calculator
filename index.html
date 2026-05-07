@@ -7,9 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-zinc-800">
-
     <!-- Perspective Wrapper -->
-    <div id="selectorPage" class="hidden h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center p-6 [perspective:1000px] overflow-hidden">
+    <div id="selectorPage" class=" h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center p-6 [perspective:1000px] overflow-hidden">
+        <video id="bgVid" autoplay muted loop class="fixed -z-10 h-full w-full object-cover brightness-75" src="307818_medium.mp4" type="video/mp4"></video>
         
         <!-- The Flipper Container -->
         <div id="main-flipper" class="relative w-full max-w-2xl transition-all mt-[-3rem] duration-1000 [transform-style:preserve-3d]">
@@ -21,7 +21,7 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Sem 1 Button -->
-                        <button id="sem1" onclick="goToStructure()" class="group relative bg-white/5 hover:bg-emerald-600/0 border border-white/10 hover:border-emerald-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                        <button id="sem1" onclick="selectSemester('sem1')" class="group relative bg-white/5 hover:bg-emerald-600/0 border border-white/10 hover:border-emerald-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
                             <div class="text-6xl font-bold text-white/20 group-hover:text-emerald-600/30 absolute top-4 right-6 transition-all group-hover:scale-125 duration-300">1</div>
                             <h2 class="text-2xl font-bold text-white mb-2 text-left">Semester 1</h2>
                             <p class="text-gray-400 text-sm text-left leading-relaxed">Freshman Year</p>
@@ -29,7 +29,7 @@
                         </button>
 
                         <!-- Sem 2 Button -->
-                        <button id="sem2" onclick="goToStructure()" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-red-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                        <button id="sem2" onclick="selectSemester('sem2')" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-red-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
                             <div class="text-6xl font-bold text-white/20 group-hover:text-red-400/60 absolute top-4 right-6 transition-all group-hover:scale-110 duration-300">2</div>
                             <h2 class="text-2xl font-bold text-white mb-2 text-left">Semester 2</h2>
                             <p class="text-gray-400 text-sm text-left leading-relaxed">Sophomore Vibes</p>
@@ -47,7 +47,7 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Structure A -->
-                        <button onclick="structSelected()" id="structA" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-emerald-400/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                        <button onclick="structSelected('A')" id="structA" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-emerald-400/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
                             <div class="text-6xl font-bold text-white/20 group-hover:text-emerald-400/30 absolute top-4 right-6 transition-colors">A</div>
                             <h2 class="text-2xl font-bold text-white mb-2 text-left ml-[-0.3rem]">Structure A</h2>
                             <p class="text-gray-400 text-sm text-left leading-relaxed">Includes EGD & Physics</p>
@@ -55,7 +55,7 @@
                         </button>
 
                         <!-- Structure B -->
-                        <button onclick="structSelected()" id="structB" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-red-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                        <button onclick="structSelected('B')" id="structB" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-red-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
                             <div class="text-6xl font-bold text-white/20 group-hover:text-red-400/60 absolute top-4 right-6 transition-colors">B</div>
                             <h2 class="text-2xl font-bold text-white mb-2 text-left">Structure B</h2>
                             <p class="text-gray-400 text-sm text-left leading-relaxed">Includes PPS & Chemistry</p>
@@ -85,7 +85,7 @@
 
 
     <!-- Main Container -->
-    <div id="mainPage" class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center p-4">
+    <div id="mainPage" class="hidden min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center p-4">
         <div class="w-full max-w-4xl bg-white/50 backdrop-blur-2xl shadow-xl rounded-xl p-6 md:p-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Academic Calculator</h1>
 
@@ -102,7 +102,7 @@
                     </div>
                     
                     <!-- Template Row (One subject) -->
-                    <div id="subjectRows" class="subjectRows grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-white rounded-lg border border-gray-200">
+                    <div id="subjectRows" class="subjectRows grid grid-cols-1 md:flex md:flex-col gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-gray-200">
 
 
 
@@ -111,7 +111,6 @@
                 </div>
 
                 <div class="mt-4 flex flex-col sm:flex-row gap-3">
-                    <button id="add-subject" class="bg-indigo-500 text-white py-2 px-6 rounded-lg hover:bg-indigo-600 font-medium">Add Subject</button>
                     <button id="calc-sgpa" class="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 font-medium">Calculate SGPA</button>
                 </div>
                 
@@ -140,5 +139,5 @@
         </div>
     </div>
 </body>
-<script defer src="main.js"></script>
+<script defer src="main1.js"></script>
 </html>

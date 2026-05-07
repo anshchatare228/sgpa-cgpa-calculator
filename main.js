@@ -60,8 +60,8 @@ function calculateSGPA(semesterKey, studentGrades) {
     return (totalPoints / semData.totalCredits).toFixed(2);
 }
 
+const subjectRows = document.getElementById("subjectRows");
 function renderStructA(){
-    const subjectRows = document.getElementById("subjectRows");
     subjectRows.innerHTML = `
     <select id='structureA' class='p-2 border rounded focus:ring-2 focus:ring-indigo-400 outline-none'>
     <option value="" disabled selected hidden>Select Subject</option>
