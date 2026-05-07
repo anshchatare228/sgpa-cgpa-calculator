@@ -143,3 +143,4 @@ function structSelected(structure) {
         cgpaSection.classList.remove("hidden");
     }
 }
+
