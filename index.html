@@ -7,16 +7,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-zinc-800">
+    <video id="bgVid" autoplay muted loop class="fixed -z-10 h-full w-full object-cover brightness-75" src="307818_medium.mp4" type="video/mp4"></video>
     <!-- Perspective Wrapper -->
-    <div id="selectorPage" class=" h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center p-6 [perspective:1000px] overflow-hidden">
-        <video id="bgVid" autoplay muted loop class="fixed -z-10 h-full w-full object-cover brightness-75" src="307818_medium.mp4" type="video/mp4"></video>
+    <div id="selectorPage" class=" h-screen flex items-center justify-center p-6 [perspective:1000px] overflow-hidden">
         
         <!-- The Flipper Container -->
         <div id="main-flipper" class="relative w-full max-w-2xl transition-all mt-[-3rem] duration-1000 [transform-style:preserve-3d]">
             
             <!-- SIDE 1: SEMESTER SELECTOR -->
-            <div class="[backface-visibility:hidden] w-full">
-                <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-10 shadow-2xl text-center">
+            <div class="[backface-visibility:hidden] [transform-style:preserve-3d] w-full">
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-10 shadow-2xl text-center">
                     <h1 class="text-4xl font-extrabold text-white mb-8 tracking-tight">Select Your Semester</h1>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -41,8 +41,8 @@
             </div>
 
             <!-- SIDE 2: STRUCTURE SELECTOR (Face Down Initially) -->
-            <div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] w-full">
-                <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-10 shadow-2xl text-center h-full">
+            <div class="absolute inset-0 [backface-visibility:hidden] [transform-style:preserve-3d] [transform:rotateY(180deg)] w-full">
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-10 shadow-2xl text-center h-full">
                     <h1 class="text-4xl font-extrabold text-white mb-8 tracking-tight">Select Your Structure</h1>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -70,23 +70,10 @@
         </div>
     </div>
 
-    <script>
-        const flipper = document.getElementById('main-flipper');
-
-        function goToStructure() {
-            flipper.style.transform = "rotateY(180deg)";
-        }
-
-        function goBack() {
-            flipper.style.transform = "rotateY(0deg)";
-        }
-    </script>
-
-
 
     <!-- Main Container -->
-    <div id="mainPage" class="hidden min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black flex items-center justify-center p-4">
-        <div class="w-full max-w-4xl bg-white/50 backdrop-blur-2xl shadow-xl rounded-xl p-6 md:p-8">
+    <div id="mainPage" class="hidden min-h-screen to-black flex items-center justify-center p-4">
+        <div class="w-full max-w-4xl bg-white/50 backdrop-blur-[0.4rem] shadow-xl rounded-xl p-6 md:p-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Academic Calculator</h1>
 
             <!-- SGPA Section -->

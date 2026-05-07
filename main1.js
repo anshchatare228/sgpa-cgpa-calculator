@@ -47,6 +47,16 @@ const subjects = {
     }
 };
 
+const flipper = document.getElementById('main-flipper');
+
+function goToStructure() {
+    flipper.style.transform = "rotateY(180deg)";
+}
+
+function goBack() {
+    flipper.style.transform = "rotateY(0deg)";
+}
+
 function selectSemester(sem) {
     currentSemester = sem;
     goToStructure();
