@@ -7,42 +7,45 @@ const subjects = {
     sem1: {
         A: [
             { name: "Maths-I",theory: true, practical: false, credits: 4 },
+            { name: "Physics",theory: true, practical: true, credits: 4 },
+            { name: "BEE",theory: true, practical: true, credits: 4  },
+            { name: "BE",theory: true, practical: true, credits: 3  },
+            { name: "PPS",theory: true, practical: true, credits: 4  },
+            { name: "Yoga & Sports", theory: false, practical: true, credits: 2  },
+            { name: "Explo Engg.", theory: false, practical: true, credits: 2  }
+        ],
+        
+        B: [
+            { name: "Maths-I",theory: true, practical: false, credits: 4 },
             { name: "Chemistry",theory: true, practical: true, credits: 4 },
-            { name: "IKS", theory: true, practical: true, credits: 4 },
+            { name: "ETM", theory: true, practical: true, credits: 4 },
+            { name: "EGD",theory: true, practical: true, credits: 4 },
+            { name: "PC", theory: true, practical: true, credits: 3},
+            { name: "IKS", theory: false, practical: true, credits: 2 },
+            { name: "Drama/Photography", theory: false, practical: true, credits: 2}
+        ]
+    },
+    
+    sem2: {
+        A: [
+            { name: "Maths-II",theory: true, practical: false, credits: 4 },
+            { name: "Physics",theory: true, practical: true, credits: 4 },
+            { name: "BEE",theory: true, practical: true, credits: 4  },
+            { name: "BE",theory: true, practical: true, credits: 3  },
+            { name: "PPS",theory: true, practical: true, credits: 4  },
+            { name: "Yoga & Sports", theory: false, practical: true, credits: 2  },
+            { name: "Explo Engg.", theory: false, practical: true, credits: 2  } 
+        ],
+        
+        B: [
+            { name: "Maths-II",theory: true, practical: false, credits: 4 },
+            { name: "Chemistry",theory: true, practical: true, credits: 4 },
             { name: "ETM", theory: true, practical: true, credits: 4 },
             { name: "EGD",theory: true, practical: true, credits: 4 },
             { name: "PC", theory: true, practical: true, credits: 4},
+            { name: "IKS", theory: false, practical: true, credits: 4 },
             { name: "Drama/Photography", theory: false, practical: true, credits: 2}
-        ],
-
-        B: [
-            { name: "Maths-I",theory: true, practical: false, credits: 4 },
-            { name: "Physics",theory: true, practical: true, credits: 4 },
-            { name: "BEE",theory: true, practical: true, credits: 4  },
-            { name: "BE",theory: true, practical: true, credits: 4  },
-            { name: "PPS",theory: true, practical: true, credits: 4  },
-            { name: "Yoga & Sports", theory: false, practical: true, credits: 2  }
-        ]
-    },
-
-    sem2: {
-        A: [
-            { name: "Maths-II",theory: true, practical: false, credits: 3 },
-            { name: "Chemistry",theory: true, practical: true, credits: 4 },
-            { name: "IKS",theory: true, practical: true, credits: 4 },
-            { name: "ETM",theory: true, practical: true, credits: 4 },
-            { name: "EGD",theory: true, practical: true, credits: 4 },
-            { name: "PC",theory: true, practical: true, credits: 4},
-            { name: "Drama/Photography",theory: false, practical: true, credits: 2}
-        ],
-
-        B: [
-            { name: "Maths-II",theory: true, practical: false, credits: 3 },
-            { name: "Physics",theory: true, practical: true, credits: 4 },
-            { name: "BEE",theory: true, practical: true, credits: 4  },
-            { name: "BE",theory: true, practical: true, credits: 4  },
-            { name: "PPS",theory: true, practical: true, credits: 4  },
-            { name: "Yoga & Sports", theory: false, practical: true, credits: 2  }
+        
         ]
     }
 };
@@ -79,6 +82,7 @@ function structSelected(structure) {
         selectedSubjects.forEach(subject => {
 
         const row = document.createElement("div");
+        row.dataset.credits = subject.credits;
 
         row.className =
             "grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-white/30 rounded-lg  border border-white";
@@ -94,14 +98,15 @@ function structSelected(structure) {
                 ?
                 `
                 <span class="text-[0.95rem] text-black/60 font-light mb-[-1rem] md:hidden" >Practiclas</span>
-                <select class="practical-grade p-2 border rounded">
+                <select class="theory-grade p-2 border rounded">
                     <option value="" disabled selected hidden>Select Grade</option>
                     <option value="9">A+</option>
                     <option value="8">A</option>
                     <option value="7">B+</option>
                     <option value="6">B</option>
-                    <option value="5">C</option>
-                    <option value="4">D</option>
+                    <option value="5">C+</option>
+                    <option value="4">C</option>
+                    <option value="3">D</option>
                     <option value="0">F</option>
                 </select>
                 `
@@ -125,8 +130,9 @@ function structSelected(structure) {
                     <option value="8">A</option>
                     <option value="7">B+</option>
                     <option value="6">B</option>
-                    <option value="5">C</option>
-                    <option value="4">D</option>
+                    <option value="5">C+</option>
+                    <option value="4">C</option>
+                    <option value="3">D</option>
                     <option value="0">F</option>
                 </select>
                 `
@@ -160,3 +166,71 @@ function structSelected(structure) {
     }
 }
 
+
+//SGPA calculation logic
+document.getElementById("calc-sgpa")
+.addEventListener("click", () => {
+
+    const rows = document.querySelectorAll("#subjectRows > div");
+
+    let totalCreditPoints = 0;
+    let totalCredits = 0;
+
+    rows.forEach(row => {
+
+        const credits = Number(row.dataset.credits);
+
+        const theorySelect =
+            row.querySelector(".theory-grade");
+
+        const practicalSelect =
+            row.querySelector(".practical-grade");
+
+        let totalGradePoints = 0;
+        let gradeCount = 0;
+
+
+        // THEORY
+        if(theorySelect) {
+
+            const theoryGrade =
+                Number(theorySelect.value);
+
+            totalGradePoints += theoryGrade;
+            gradeCount++;
+        }
+
+
+        // PRACTICAL
+        if(practicalSelect) {
+
+            const practicalGrade =
+                Number(practicalSelect.value);
+
+            totalGradePoints += practicalGrade;
+            gradeCount++;
+        }
+
+
+        // FINAL SUBJECT GRADE
+        const subjectGrade =
+        totalGradePoints / gradeCount;
+
+        // CREDIT WEIGHTED POINTS
+
+        totalCreditPoints +=
+        subjectGrade * credits;
+
+        totalCredits += credits;
+    });
+
+    const sgpa =
+        ((totalCreditPoints / totalCredits)+0.6)
+        .toFixed(2);
+
+    document.getElementById("sgpa-result")
+        .classList.remove("hidden");
+
+    document.getElementById("sgpa-value")
+        .innerText = sgpa;
+});
