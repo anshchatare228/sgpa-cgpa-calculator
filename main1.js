@@ -100,7 +100,7 @@ function structSelected(structure) {
                 subject.theory
                 ?
                 `
-                <span class="text-[0.95rem] text-black/60 font-light mb-[-1rem] md:hidden" >Practiclas</span>
+                <span class="text-[0.95rem] text-black/60 font-light mb-[-1rem] md:hidden" >Theory</span>
                 <select class="theory-grade p-2 border rounded">
                     <option value="" disabled selected hidden>Select Grade</option>
                     <option value="9">A+</option>
