@@ -1,6 +1,9 @@
 let currentSemester = "";
 let currentStructure = "";
 
+let lastSGPA = null;
+let lastTotalCredits = 0;
+
 bgVid.playbackRate = 0.5;
 
 const subjects = {
@@ -146,12 +149,24 @@ function structSelected(structure) {
 
             
 
-            <button class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600">
+            <button class="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600">
                 Remove
             </button>
         `;
 
         subjectContainer.appendChild(row);
+
+        // Wire up Remove button to clear selects in this row
+        const removeBtn = row.querySelector('button');
+        if (removeBtn) {
+            removeBtn.addEventListener('click', () => {
+                const theorySelect = row.querySelector('.theory-grade');
+                const practicalSelect = row.querySelector('.practical-grade');
+
+                if (theorySelect) theorySelect.selectedIndex = 0;
+                if (practicalSelect) practicalSelect.selectedIndex = 0;
+            });
+        }
     });
 
     // SHOW/HIDE CGPA SECTION
@@ -224,13 +239,43 @@ document.getElementById("calc-sgpa")
         totalCredits += credits;
     });
 
-    const sgpa =
-        ((totalCreditPoints / totalCredits)+0.6)
-        .toFixed(2);
+    const numericSgpa = (totalCreditPoints / totalCredits) + 0.6;
+    const sgpa = numericSgpa.toFixed(2);
 
-    document.getElementById("sgpa-result")
-        .classList.remove("hidden");
+    lastSGPA = Number(numericSgpa.toFixed(2));
+    lastTotalCredits = totalCredits;
 
-    document.getElementById("sgpa-value")
-        .innerText = sgpa;
+    document.getElementById("sgpa-result").classList.remove("hidden");
+    document.getElementById("sgpa-value").innerText = sgpa;
+});
+
+
+// CGPA calculation logic — simple average of previous and current SGPA
+document.getElementById("calc-cgpa")
+.addEventListener("click", () => {
+    const prevSgpaInput = document.getElementById("prev-sgpa");
+
+    const prevSgpa = prevSgpaInput ? parseFloat(prevSgpaInput.value) : NaN;
+
+    // Get current SGPA (prefer lastSGPA if available)
+    let currentSgpa = lastSGPA;
+    if (currentSgpa === null) {
+        const displayed = document.getElementById("sgpa-value").innerText;
+        currentSgpa = displayed ? parseFloat(displayed) : NaN;
+    }
+
+    if (isNaN(prevSgpa)) {
+        alert("Please enter a valid previous SGPA/CGPA.");
+        return;
+    }
+
+    if (isNaN(currentSgpa)) {
+        alert("Please calculate current SGPA first.");
+        return;
+    }
+
+    const average = ((prevSgpa + currentSgpa) / 2).toFixed(2);
+
+    document.getElementById("cgpa-result").classList.remove("hidden");
+    document.getElementById("cgpa-value").innerText = average;
 });
