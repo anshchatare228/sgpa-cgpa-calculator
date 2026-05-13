@@ -7,9 +7,49 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
        @import url('https://fonts.googleapis.com/css2?family=Boogaloo&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Questrial&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+       
+       @keyframes slideInDown {
+           from {
+               opacity: 0;
+               transform: translateY(-30px);
+           }
+           to {
+               opacity: 1;
+               transform: translateY(0);
+           }
+       }
+
+       @keyframes slideOutUp {
+           from {
+               opacity: 1;
+               transform: translateY(0);
+           }
+           to {
+               opacity: 0;
+               transform: translateY(-30px);
+           }
+       }
+
+       .error-popup-show {
+           animation: slideInDown 0.4s ease-out;
+       }
+
+       .error-popup-hide {
+           animation: slideOutUp 0.4s ease-out;
+       }
+
+       @keyframes shake {
+           0%, 100% { transform: translateX(0); }
+           10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+           20%, 40%, 60%, 80% { transform: translateX(5px); }
+       }
+
+       .error-popup-shake {
+           animation: shake 0.5s ease-in-out;
+       }
     </style>
 </head>
-<body class="bg-zinc-800">
+<body id="body" class="bg-zinc-800">
     <video id="bgVid" autoplay muted loop class="fixed -z-10 h-full w-full object-cover brightness-75" src="307818_medium.mp4" type="video/mp4"></video>
     <!-- Perspective Wrapper -->
     <div id="selectorPage" class=" h-screen flex items-center justify-center p-6 [perspective:1000px] overflow-hidden">
@@ -50,18 +90,18 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Structure A -->
-                        <button onclick="structSelected('A')" id="structA" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-emerald-400/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                        <button onclick="structSelected('B')" id="structA" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-emerald-400/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
                             <div class="text-6xl font-bold text-white/20 group-hover:text-emerald-400/30 absolute top-4 right-6 transition-colors">A</div>
                             <h2 class="text-2xl font-bold text-white mb-2 text-left ml-[-0.3rem] font-['questrial']">Structure A</h2>
-                            <p class="text-gray-400 text-sm text-left leading-relaxed">Includes Explo.Engg. & Physics</p>
+                            <p class="text-gray-400 text-sm text-left leading-relaxed">Includes EDG & Chemistry</p>
                             <div class="mt-6 flex items-center text-emerald-400 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Select →</div>
                         </button>
 
                         <!-- Structure B -->
-                        <button onclick="structSelected('B')" id="structB" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-red-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                        <button onclick="structSelected('A')" id="structB" class="group relative bg-white/5 hover:bg-white/0 border border-white/10 hover:border-red-600/50 rounded-2xl p-8 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
                             <div class="text-6xl font-bold text-white/20 group-hover:text-red-400/60 absolute top-4 right-6 transition-colors">B</div>
                             <h2 class="text-2xl font-bold text-white mb-2 text-left font-['questrial']">Structure B</h2>
-                            <p class="text-gray-400 text-sm text-left leading-relaxed">Includes EDG & Chemistry</p>
+                            <p class="text-gray-400 text-sm text-left leading-relaxed">Includes Explo.Engg. & Physics</p>
                             <div class="mt-6 flex items-center text-red-400/90 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">Select →</div>
                         </button>
                     </div>
@@ -87,7 +127,7 @@
 
             <!-- SGPA Section -->
             <section id="sgpa-section" class="mb-10">
-                <h2 class="text-xl font-semibold text-purple-800 mb-4 border-b pb-2">Step 1: Calculate SGPA</h2>
+                <h2 class="text-xl font-semibold text-white mb-4 border-b pb-2">Step 1: Calculate SGPA</h2>
                 <div class="space-y-4">
                     <!-- Subject Header (Desktop) -->
                     <div class="hidden md:flex justify-around font-medium text-gray-600 mb-2 px-2">
@@ -110,30 +150,69 @@
                     <button id="calc-sgpa" class="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 font-medium">Calculate SGPA</button>
                 </div>
                 
-                <div id="sgpa-result" class="mt-4 p-4 bg-indigo-50 text-indigo-800 rounded-lg text-lg font-bold text-center hidden">
-                    Your SGPA: <span id="sgpa-value">0.00</span>
+                <div id="sgpa-result" class="mt-8 hidden">
+                    <div class="bg-black/60 backdrop-blur-md border border-emerald-400 rounded-2xl p-8 shadow-lg hover:shadow-emerald-500/20 transition-all duration-300">
+                        <p class="text-gray-300 text-sm mb-2">Your SGPA</p>
+                        <div class="text-5xl font-black text-transparent bg-clip-text bg-white">
+                            <span id="sgpa-value">0.00</span>
+                        </div>
+                        <div class="mt-4 h-1 bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 rounded-full w-32"></div>
+                    </div>
                 </div>
             </section>
 
             <!-- CGPA Section -->
-            <section id="cgpa-section" class="pt-6 border-t">
-                <h2 class="text-xl font-semibold text-purple-600 mb-4 border-b pb-2">Step 2: Calculate CGPA</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Previous Semester CGPA/SGPA</label>
-                        <input type="number" step="0.01" id="prev-sgpa" placeholder="Enter Sem 1 SGPA" class="w-full p-2 border rounded focus:ring-2 focus:ring-purple-400 outline-none">
-                    </div>
-                    <div class="flex items-end">
-                        <button id="calc-cgpa" class="w-full bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 font-medium">Calculate Overall CGPA</button>
+            <section id="cgpa-section" class="pt-8 border-t border-white/20">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+                        Step 2: Calculate CGPA
+                    </h2>
+                    <p class="text-gray-300 text-sm">Combine your current SGPA with previous semesters</p>
+                </div>
+
+                <div class="bg-black/60 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+                        <div class="group">
+                            <label class="block text-sm font-semibold text-white/90 mb-3 tracking-wide">Previous Semester CGPA/SGPA</label>
+                            <div class="relative">
+                                <input type="number" step="0.01" id="prev-sgpa" placeholder="Enter previous SGPA" class="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl focus:border-white focus:ring-2 focus:ring-white outline-none text-white placeholder-gray-400 transition-all duration-300 hover:bg-white/10">
+                            </div>
+                        </div>
+                        <button id="calc-cgpa" class="relative h-12 w-full bg-white/50 text-white font-semibold rounded-xl shadow-lg hover:shadow transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 overflow-hidden group">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+                            <span class="relative flex items-center justify-center gap-2">
+                                Calculate Overall CGPA
+                            </span>
+                        </button>
                     </div>
                 </div>
 
-                <div id="cgpa-result" class="mt-6 p-4 bg-purple-50 text-purple-800 rounded-lg text-2xl font-bold text-center hidden">
-                    Cumulative CGPA: <span id="cgpa-value">0.00</span>
+                <div id="cgpa-result" class="mt-8 hidden">
+                    <div class="bg-black/60 backdrop-blur-md border border-emerald-400 rounded-2xl p-8 shadow-lg hover:shadow-emerald-500/20 transition-all duration-300">
+                        <p class="text-gray-300 text-sm mb-2">Your Cumulative CGPA</p>
+                        <div class="text-5xl font-black text-transparent bg-clip-text bg-white">
+                            <span id="cgpa-value">0.00</span>
+                        </div>
+                        <div class="mt-4 h-1 bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 rounded-full w-32"></div>
+                    </div>
                 </div>
             </section>
         </div>
     </div>
+
+    <!-- Error Popup Modal -->
+    <div id="error-popup" class="fixed w-[15rem] top-[15rem] ml-[4rem] z-50 hidden">
+        <div class="bg-gradient-to-r from-red-600 to-red-500 backdrop-blur-md border border-red-400/50 rounded-xl px-6 py-4 shadow-2xl flex flex-col items-center gap-4 max-w-md">
+            <div class="flex">
+                <div class="text-2xl">⚠️</div>
+                <button onclick="closeErrorPopup()" class="text-white hover:text-red-200 transition-colors duration-200 text-lg font-bold absolute pl-[6rem]">✕</button>
+            </div>
+            <div class="flex-1">
+                <p class="text-white font-semibold" id="error-popup-message">Error message</p>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script defer src="main1.js"></script>
 </html>

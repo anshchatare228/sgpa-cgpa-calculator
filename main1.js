@@ -6,6 +6,7 @@ let lastTotalCredits = 0;
 
 bgVid.playbackRate = 0.5;
 
+
 const subjects = {
     sem1: {
         A: [
@@ -115,7 +116,7 @@ function structSelected(structure) {
                 `
                 :
                 `
-                <div class="flex items-center text-gray-400 ml-10">
+                <div class="flex items-center text-black italic ml-[4rem]">
                     No Theory
                 </div>
                 `
@@ -141,7 +142,7 @@ function structSelected(structure) {
                 `
                 :
                 `
-                <div class="flex items-center text-gray-400 ml-10">
+                <div class="flex items-center text-black italic ml-[4rem]">
                     No Practical
                 </div>
                 `
@@ -190,6 +191,7 @@ document.getElementById("calc-sgpa")
 
     let totalCreditPoints = 0;
     let totalCredits = 0;
+    let allFieldsFilled = true;
 
     rows.forEach(row => {
 
@@ -211,6 +213,10 @@ document.getElementById("calc-sgpa")
             const theoryGrade =
                 Number(theorySelect.value);
 
+            if (theoryGrade === 0 && theorySelect.value === "") {
+                allFieldsFilled = false;
+            }
+
             totalGradePoints += theoryGrade;
             gradeCount++;
         }
@@ -221,6 +227,10 @@ document.getElementById("calc-sgpa")
 
             const practicalGrade =
                 Number(practicalSelect.value);
+
+            if (practicalGrade === 0 && practicalSelect.value === "") {
+                allFieldsFilled = false;
+            }
 
             totalGradePoints += practicalGrade;
             gradeCount++;
@@ -238,6 +248,11 @@ document.getElementById("calc-sgpa")
 
         totalCredits += credits;
     });
+
+    if (!allFieldsFilled) {
+        showErrorPopup("Please fill all grades.");
+        return;
+    }
 
     const numericSgpa = (totalCreditPoints / totalCredits) + 0.6;
     const sgpa = numericSgpa.toFixed(2);
@@ -265,17 +280,64 @@ document.getElementById("calc-cgpa")
     }
 
     if (isNaN(prevSgpa)) {
-        alert("Please enter a valid previous SGPA/CGPA.");
+        showErrorPopup("Please enter a valid previous SGPA/CGPA.");
         return;
     }
 
-    if (isNaN(currentSgpa)) {
-        alert("Please calculate current SGPA first.");
+    if ((!currentSgpa)) {
+        showErrorPopup("Please calculate current SGPA first.");
         return;
     }
+
 
     const average = ((prevSgpa + currentSgpa) / 2).toFixed(2);
 
     document.getElementById("cgpa-result").classList.remove("hidden");
     document.getElementById("cgpa-value").innerText = average;
 });
+
+
+// Error Popup Functions
+function showErrorPopup(message) {
+    const popup = document.getElementById("error-popup");
+    const messageEl = document.getElementById("error-popup-message");
+    const selectorPage = document.getElementById("selectorPage");
+    const mainPage = document.getElementById("mainPage");
+    const bgVid = document.getElementById("bgVid");
+    
+    messageEl.textContent = message;
+    popup.classList.remove("hidden");
+    popup.classList.add("error-popup-show");
+    popup.classList.remove("error-popup-hide");
+    
+    // Blur the visible content and background video
+    bgVid.classList.add("blur-sm");
+    if (!selectorPage.classList.contains("hidden")) {
+        selectorPage.classList.add("blur-sm");
+    }
+    if (!mainPage.classList.contains("hidden")) {
+        mainPage.classList.add("blur-sm");
+    }
+    
+    // Auto-close after 5 seconds
+    setTimeout(closeErrorPopup, 5000);
+}
+
+function closeErrorPopup() {
+    const popup = document.getElementById("error-popup");
+    const selectorPage = document.getElementById("selectorPage");
+    const mainPage = document.getElementById("mainPage");
+    const bgVid = document.getElementById("bgVid");
+    
+    // Remove blur from content and background video
+    bgVid.classList.remove("blur-sm");
+    selectorPage.classList.remove("blur-sm");
+    mainPage.classList.remove("blur-sm");
+    
+    popup.classList.add("error-popup-hide");
+    
+    setTimeout(() => {
+        popup.classList.add("hidden");
+        popup.classList.remove("error-popup-show");
+    }, 400);
+}
